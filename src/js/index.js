@@ -2,10 +2,15 @@
  * Created by ggikko on 2016. 10. 22..
  */
 
+import youtube from './component/Youtube.js'
 
 class App{
 
     constructor(){
-        console.log("test");
+        new youtube();
     }
 }
+
+export default App;
+
+window.oApp = new App();
