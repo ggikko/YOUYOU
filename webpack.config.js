@@ -3,36 +3,54 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    watch: true,
-
     // devtool: 'eval-source-map',
     // devtool: 'inline-source-map',  //<== chrome debugger error;
-
-    entry: {
-        style: ['./src/css/machine.css'],
-        bundle: ['./src/js/App.js']
-    },
+    devtool: 'eval-source-map',
+    debug: true,
+    entry: [
+        'react-hot-loader/patch',
+        'webpack-dev-server/client?http://localhost:3000',
+        'webpack/hot/only-dev-server',
+    ],
 
     output: {
-        path: __dirname + "/dist/",
-        filename: "[name].js?[hash]",
-        chunkFilename: "[name].js?[hash]"
+        path: path.join(__dirname, 'dist'),
+        filename: 'bundle.js'
     },
 
     module: {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
-                loader: "babel-loader"
+                loaders: ['babel'],
+                include: path.join(__dirname, 'src')
             },
             {
-                test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+                test: /\.css$/, loader: "style-loader!css-loader"
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                exclude: /(node_modules|bower_components)/,
-                loader: "file-loader"
+                test: /\.sass/,
+                loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
+            },
+            {
+                test: /\.scss/,
+                loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+            },
+            {
+                test: /\.less/,
+                loader: 'style-loader!css-loader!less-loader'
+            },
+            {
+                test: /\.styl/,
+                loader: 'style-loader!css-loader!stylus-loader'
+            },
+            {
+                test: /\.(png|jpg|gif|woff|woff2)$/,
+                loader: 'url-loader?limit=8192'
+            },
+            {
+                test: /\.(mp4|ogg|svg)$/,
+                loader: 'file-loader'
             }
         ]
     },
@@ -67,9 +85,14 @@ module.exports = {
     ],
 
     devServer: {
+        port: 3000,
+        publicPath: '/dist/',
         hot: true,
         inline: true,
-        contentBase: "./",
-        compress: true
+        colors: true,
+        historyApiFallback: true,
+        compress: true,
+        quiet: false,
+        progress: true
     }
 };
