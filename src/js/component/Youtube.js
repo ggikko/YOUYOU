@@ -12,22 +12,20 @@ class YoutubeComponent {
 
     init(query) {
         $.ajax({
-            method: "GET",
-            url: query,
-            crossDomain: true,
-            xhrFields: {
-                withCredentials: true
-            }
+            url:'http://localhost:5000',
+            method: "POST",
+            data: {url: query},
+
         })
             .done(this.onSuccessRequest)
             .fail(this.onFail);
     };
 
-    onSuccessRequest(res){
-        console.log(res);
+    onSuccessRequest(res) {
+        let json = JSON.parse(res.body);
     }
 
-    onFail(err){
+    onFail(err) {
         console.log(err);
     }
 }
