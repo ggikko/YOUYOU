@@ -21,6 +21,9 @@ module.exports = {
     module: {
         loaders: [
             {
+                test: /\.handlebars$/, loader: "handlebars-loader"
+            },
+            {
                 test: /\.js$/,
                 loaders: ['babel'],
                 include: path.join(__dirname, 'src')

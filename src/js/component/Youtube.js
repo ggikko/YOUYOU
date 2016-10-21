@@ -2,6 +2,8 @@
  * Created by ggikko on 2016. 10. 22..
  */
 
+import ggikko from '../../templates/ggikko.handlebars'
+
 class YoutubeComponent {
 
     constructor() {
@@ -12,7 +14,7 @@ class YoutubeComponent {
 
     init(query) {
         $.ajax({
-            url:'http://localhost:5000',
+            url: 'http://localhost:5000',
             method: "POST",
             data: {url: query},
 
@@ -23,6 +25,16 @@ class YoutubeComponent {
 
     onSuccessRequest(res) {
         let json = JSON.parse(res.body);
+
+        let items = json.channel.item;
+
+        var element = document.getElementById('listWrapper');
+        element.innerHTML = ggikko({
+            url : items
+            // item.image
+        });
+
+        // for (let item of items) {}
     }
 
     onFail(err) {
