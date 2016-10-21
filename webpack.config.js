@@ -93,6 +93,7 @@ module.exports = {
         historyApiFallback: true,
         compress: true,
         quiet: false,
-        progress: true
+        progress: true,
+        headers: { "Access-Control-Allow-Origin": "*" }
     }
 };
