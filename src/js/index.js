@@ -2,7 +2,8 @@
  * Created by ggikko on 2016. 10. 22..
  */
 
-import youtube from './component/Youtube.js'
+import youtube from './component/Youtube.js';
+import css from '../css/style.css';
 
 class App{
 
